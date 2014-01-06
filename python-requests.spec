@@ -2,18 +2,18 @@
 
 Summary:	HTTP library for Python
 Name:		python-%{module}
-Version:	1.2.3
-Release:	0.3
+Version:	2.1.0
+Release:	1
 License:	Apache2
 Group:		Development/Languages/Python
 Source0:	https://pypi.python.org/packages/source/r/requests/%{module}-%{version}.tar.gz
-# Source0-md5:	adbd3f18445f7fe5e77f65c502e264fb
+# Source0-md5:	28543001831f46b1ff40686ebc027deb
 URL:		http://python-requests.org
 Patch0:		%{name}-system-cert.patch
 Patch1:		%{name}-system-charade-and-urllib3.patch
 BuildRequires:	python-charade
 BuildRequires:	python-modules
-BuildRequires:	python-urllib3
+BuildRequires:	python-urllib3 >= 1.7.1
 BuildRequires:	python3-charade
 BuildRequires:	python3-modules
 BuildRequires:	python3-urllib3
@@ -21,7 +21,7 @@ BuildRequires:	rpm-pythonprov
 Requires:	ca-certificates
 Requires:	python-charade
 Requires:	python-modules
-Requires:	python-urllib3
+Requires:	python-urllib3 >= 1.7.1
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -41,7 +41,7 @@ Group:		Development/Languages/Python
 Requires:	ca-certificates
 Requires:	python3-charade
 Requires:	python3-modules
-Requires:	python3-urllib3
+Requires:	python3-urllib3 >= 1.7.1
 
 %description -n python3-requests
 Requests is a HTTP library, written in Python, for human beings.
@@ -49,7 +49,7 @@ Requests is a HTTP library, written in Python, for human beings.
 %prep
 %setup -qn %{module}-%{version}
 %patch0 -p1
-%patch1 -p0
+%patch1 -p1
 
 %build
 %{__python} setup.py build -b python
@@ -81,9 +81,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc HISTORY.rst README.rst
 %{py_sitescriptdir}/%{module}
+%{py_sitescriptdir}/%{module}-%{version}-py*.egg-info
 
 %files -n python3-requests
 %defattr(644,root,root,755)
 %doc HISTORY.rst README.rst
 %{py3_sitescriptdir}/%{module}
+%{py3_sitescriptdir}/%{module}-%{version}-py*.egg-info
 
